@@ -24,6 +24,11 @@ public class EndpointsVentas {
         return ventaService.newVenta(crearVentaDTO);
     }
 
+    @PostMapping("/cancelar/{id_venta}")
+    public Venta cancelarVenta(@PathVariable("id_venta") Long id_venta) {
+        return ventaService.cancelarVenta(id_venta);
+    }
+
     @GetMapping("/{id_cliente}")
     public Iterable<Venta> getVentas(@PathVariable("id_cliente") Long id_cliente){
         return ventaService.getVentas(id_cliente);

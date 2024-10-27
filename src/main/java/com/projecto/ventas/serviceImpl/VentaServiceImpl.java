@@ -8,6 +8,9 @@ import com.projecto.ventas.service.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class VentaServiceImpl implements VentaService {
 
@@ -27,28 +30,36 @@ public class VentaServiceImpl implements VentaService {
     @Override
     public Venta newVenta(CrearVentaDTO crearVentaDTO) {
 
-        Factura factura = facturaRespository.findById(0L)
-                .orElseThrow(() -> new RuntimeException("Factura con id 0 no encontrada"));
+        Venta venta = (Venta) ventaRepository.findVentasByClienteIdAndEstadoAndProductoId(crearVentaDTO.getClienteId(), Estado.ENPROCESO, crearVentaDTO.getProductoId());
 
         Producto producto = productoRepository.findById(crearVentaDTO.getProductoId())
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
-        Cliente cliente = clienteRepository.findById(crearVentaDTO.getClienteId())
-                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
-
-        if(estaDisponible(producto.getCantidad(),crearVentaDTO.getCantidad() )){
-
-            Venta venta = Venta.builder()
-                    .cantidad(crearVentaDTO.getCantidad())
-                    .factura(factura)
-                    .estado(Estado.ENPROCESO)
-                    .cliente(cliente)
-                    .producto(producto)
-                    .build();
-
+        if(venta != null && estaDisponible(producto.getCantidad(),crearVentaDTO.getCantidad()) ){
+            venta.setCantidad(crearVentaDTO.getCantidad());
             return ventaRepository.save(venta);
-        }else{
-            throw new InventarioInsuficienteException("Inventario insuficiente para el producto con ID ");
+        }
+        else{
+            Factura factura = facturaRespository.findById(0L)
+                    .orElseThrow(() -> new RuntimeException("Factura con id 0 no encontrada"));
+
+            Cliente cliente = clienteRepository.findById(crearVentaDTO.getClienteId())
+                    .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+
+            if(estaDisponible(producto.getCantidad(),crearVentaDTO.getCantidad() )){
+
+                Venta venta2 = Venta.builder()
+                        .cantidad(crearVentaDTO.getCantidad())
+                        .factura(factura)
+                        .estado(Estado.ENPROCESO)
+                        .cliente(cliente)
+                        .producto(producto)
+                        .build();
+
+                return ventaRepository.save(venta2);
+            }else{
+                throw new InventarioInsuficienteException("Inventario insuficiente para el producto con ID ");
+            }
         }
     }
 
@@ -59,6 +70,13 @@ public class VentaServiceImpl implements VentaService {
     @Override
     public Iterable<Venta> getVentas(Long id_cliente){
         return ventaRepository.findVentasByClienteIdAndEstado(id_cliente,Estado.ENPROCESO);
+    }
+
+    @Override
+    public Venta cancelarVenta(Long id_venta){
+        Venta venta = ventaRepository.findById(id_venta).orElseThrow(() -> new RuntimeException("Venta no encontrada"));
+        venta.setEstado(Estado.CANCELADO);
+        return ventaRepository.save(venta);
     }
 
 }
