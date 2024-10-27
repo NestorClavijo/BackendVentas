@@ -8,9 +8,6 @@ import com.projecto.ventas.service.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 public class VentaServiceImpl implements VentaService {
 
@@ -39,7 +36,7 @@ public class VentaServiceImpl implements VentaService {
             venta.setCantidad(crearVentaDTO.getCantidad() + venta.getCantidad());
             return ventaRepository.save(venta);
         }
-        else{
+        else if(venta == null){
             Factura factura = facturaRespository.findById(0L)
                     .orElseThrow(() -> new RuntimeException("Factura con id 0 no encontrada"));
 
@@ -60,6 +57,9 @@ public class VentaServiceImpl implements VentaService {
             }else{
                 throw new InventarioInsuficienteException("Inventario insuficiente para el producto con ID ");
             }
+        }
+        else{
+            return null;
         }
     }
 
