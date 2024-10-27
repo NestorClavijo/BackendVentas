@@ -56,4 +56,9 @@ public class VentaServiceImpl implements VentaService {
         return cantSolicitada <= cantProducto;
     }
 
+    @Override
+    public Iterable<Venta> getVentas(Long id_cliente){
+        return ventaRepository.findVentasByClienteIdAndEstado(id_cliente,Estado.ENPROCESO);
+    }
+
 }

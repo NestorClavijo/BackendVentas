@@ -23,4 +23,9 @@ public class EndpointsVentas {
     public Venta newVenta(@RequestBody CrearVentaDTO crearVentaDTO) {
         return ventaService.newVenta(crearVentaDTO);
     }
+
+    @GetMapping("/{id_cliente}")
+    public Iterable<Venta> getVentas(@PathVariable("id_cliente") Long id_cliente){
+        return ventaService.getVentas(id_cliente);
+    }
 }
