@@ -35,8 +35,8 @@ public class VentaServiceImpl implements VentaService {
         Producto producto = productoRepository.findById(crearVentaDTO.getProductoId())
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
-        if(venta != null && estaDisponible(producto.getCantidad(),crearVentaDTO.getCantidad()) ){
-            venta.setCantidad(crearVentaDTO.getCantidad());
+        if(venta != null && estaDisponible(producto.getCantidad(),crearVentaDTO.getCantidad() + venta.getCantidad()) ){
+            venta.setCantidad(crearVentaDTO.getCantidad() + venta.getCantidad());
             return ventaRepository.save(venta);
         }
         else{
