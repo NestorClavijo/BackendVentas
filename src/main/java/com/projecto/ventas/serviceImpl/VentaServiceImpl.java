@@ -36,7 +36,7 @@ public class VentaServiceImpl implements VentaService {
             venta.setCantidad(crearVentaDTO.getCantidad() + venta.getCantidad());
             return ventaRepository.save(venta);
         }
-        else if(venta == null){
+        else{
             Factura factura = facturaRespository.findById(0L)
                     .orElseThrow(() -> new RuntimeException("Factura con id 0 no encontrada"));
 
@@ -55,11 +55,8 @@ public class VentaServiceImpl implements VentaService {
 
                 return ventaRepository.save(venta2);
             }else{
-                throw new InventarioInsuficienteException("Inventario insuficiente para el producto con ID ");
+                throw new InventarioInsuficienteException("Inventario insuficiente para el producto");
             }
-        }
-        else{
-            return null;
         }
     }
 
