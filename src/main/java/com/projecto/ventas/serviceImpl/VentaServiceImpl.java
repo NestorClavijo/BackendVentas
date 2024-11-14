@@ -1,6 +1,7 @@
 package com.projecto.ventas.serviceImpl;
 
 import com.projecto.ventas.DTO.CrearVentaDTO;
+import com.projecto.ventas.DTO.InformeDTO;
 import com.projecto.ventas.exceptions.InventarioInsuficienteException;
 import com.projecto.ventas.models.*;
 import com.projecto.ventas.repositry.*;
@@ -74,6 +75,11 @@ public class VentaServiceImpl implements VentaService {
         Venta venta = ventaRepository.findById(id_venta).orElseThrow(() -> new RuntimeException("Venta no encontrada"));
         venta.setEstado(Estado.CANCELADO);
         return ventaRepository.save(venta);
+    }
+
+    @Override
+    public Iterable<InformeDTO> generarInforme() {
+        return (Iterable<InformeDTO>) ventaRepository.informeVentas();
     }
 
 }

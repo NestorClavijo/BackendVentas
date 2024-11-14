@@ -1,5 +1,6 @@
 package com.projecto.ventas.repositry;
 
+import com.projecto.ventas.DTO.InformeDTO;
 import com.projecto.ventas.models.Estado;
 import com.projecto.ventas.models.Venta;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,4 +23,10 @@ public interface VentaRepository extends JpaRepository<Venta,Long> {
             @Param("estado") Estado estado,
             @Param("productoId") Long productoId
     );
+
+    @Query("SELECT new com.projecto.ventas.DTO.InformeDTO(p.nombre, SUM(v.cantidad * p.precio)) " +
+            "FROM Venta v JOIN v.producto p " +
+            "WHERE v.estado = 'REALIZADO' " +
+            "GROUP BY p.producto_id")
+    List<InformeDTO> informeVentas();
 }

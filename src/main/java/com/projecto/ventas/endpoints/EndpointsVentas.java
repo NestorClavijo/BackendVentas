@@ -1,6 +1,7 @@
 package com.projecto.ventas.endpoints;
 
 import com.projecto.ventas.DTO.CrearVentaDTO;
+import com.projecto.ventas.DTO.InformeDTO;
 import com.projecto.ventas.models.Venta;
 import com.projecto.ventas.service.ProductoService;
 import com.projecto.ventas.service.VentaService;
@@ -32,5 +33,10 @@ public class EndpointsVentas {
     @GetMapping("/{id_cliente}")
     public Iterable<Venta> getVentas(@PathVariable("id_cliente") Long id_cliente){
         return ventaService.getVentas(id_cliente);
+    }
+
+    @GetMapping("/informe")
+    public Iterable<InformeDTO> getInforme(){
+        return ventaService.generarInforme();
     }
 }
