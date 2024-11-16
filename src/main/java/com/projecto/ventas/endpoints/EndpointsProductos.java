@@ -20,11 +20,13 @@ public class EndpointsProductos {
         this.productoService = productoService;
     }
 
+    @CrossOrigin(origins="*")
     @GetMapping("/all")
     public Iterable<Producto> getAllProducto(){
         return this.productoService.getAllProducto();
     }
 
+    @CrossOrigin(origins="*")
     @GetMapping("/{producto_id}")
     public ResponseEntity<Producto> getProducto(@PathVariable("producto_id") Long producto_id){
         return this.productoService.getProducto(producto_id);

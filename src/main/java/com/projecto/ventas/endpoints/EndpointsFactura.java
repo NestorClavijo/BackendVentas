@@ -16,6 +16,7 @@ public class EndpointsFactura {
     @Autowired
     private final FacturaService facturaService;
 
+    @CrossOrigin(origins="*")
     @PostMapping("/nueva")
     public Factura newFactura(@RequestBody CrearFacturaDTO crearFacturaDTO) {
         return facturaService.newFactura(crearFacturaDTO);

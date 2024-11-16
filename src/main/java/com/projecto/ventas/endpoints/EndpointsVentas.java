@@ -20,21 +20,25 @@ public class EndpointsVentas {
         this.ventaService = ventaService;
     }
 
+    @CrossOrigin(origins="*")
     @PostMapping("/nueva")
     public Venta newVenta(@RequestBody CrearVentaDTO crearVentaDTO) {
         return ventaService.newVenta(crearVentaDTO);
     }
 
+    @CrossOrigin(origins="*")
     @PostMapping("/cancelar/{id_venta}")
     public Venta cancelarVenta(@PathVariable("id_venta") Long id_venta) {
         return ventaService.cancelarVenta(id_venta);
     }
 
+    @CrossOrigin(origins="*")
     @GetMapping("/{id_cliente}")
     public Iterable<Venta> getVentas(@PathVariable("id_cliente") Long id_cliente){
         return ventaService.getVentas(id_cliente);
     }
 
+    @CrossOrigin(origins="*")
     @GetMapping("/informe")
     public Iterable<InformeDTO> getInforme(){
         return ventaService.generarInforme();

@@ -15,12 +15,14 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @CrossOrigin(origins="*")
     @PostMapping(value = "/login")
     public ResponseEntity<AuthResponse> login(@RequestBody RegisterRequest request)
     {
         return ResponseEntity.ok(authService.login(request));
     }
 
+    @CrossOrigin(origins="*")
     @PostMapping(value = "/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request)
     {
