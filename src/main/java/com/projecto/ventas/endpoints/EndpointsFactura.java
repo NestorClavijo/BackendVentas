@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/factura")
 @RequiredArgsConstructor
-@CrossOrigin(origins="*")
+@CrossOrigin()
 public class EndpointsFactura {
 
     @Autowired
