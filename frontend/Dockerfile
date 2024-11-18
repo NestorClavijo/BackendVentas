@@ -2,6 +2,7 @@ FROM node:lts AS build
 WORKDIR /app
 COPY . .
 RUN npm i
+ARG VITE_API_URL
 RUN npm run build
 
 FROM httpd:2.4 AS runtime
