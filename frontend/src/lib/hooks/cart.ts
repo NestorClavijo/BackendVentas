@@ -46,22 +46,19 @@ export function useCart() {
 
   const eliminarDelCarrito = (ventaId: string) => {
     if (window.confirm("¿Estás seguro de que deseas cancelar esta venta?")) {
-      cancelarVenta(ventaId);
-      actualizarCarrito();
+      cancelarVenta(ventaId).then(() => actualizarCarrito());
     }
   };
 
   const cancelarCompra = () => {
     if (window.confirm("¿Estás seguro de que deseas cancelar la compra y vaciar el carrito?")) {
-      procesarCompra("CANCELADO");
-      vaciarCarrito();
+      procesarCompra("CANCELADO").then(() => vaciarCarrito());
     }
   };
 
   const comprar = () => {
     if (window.confirm("¿Deseas proceder con la compra?")) {
-      procesarCompra("REALIZADO");
-      vaciarCarrito();
+      procesarCompra("REALIZADO").then(() => vaciarCarrito());
     }
   };
 

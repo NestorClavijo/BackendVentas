@@ -18,7 +18,7 @@ export async function obtenerVentasEnProceso() {
     const data = await response.json();
 
     const ventas: Venta[] = data.map((venta: any) => ({
-      ventaId: venta.venta_id,
+      venta_id: venta.venta_id,
       producto: venta.producto,
       cantidad: venta.cantidad,
       precio: venta.producto.precio,
@@ -72,7 +72,9 @@ export async function agregarModificarVenta(productoId: string, cantidad: number
 // TODO: actualizar carrito despues de esto
 export async function cancelarVenta(ventaId: string) {
   try {
-    await fetch(`${API_URL}/api/venta/cancelar/${ventaId}`);
+    await fetch(`${API_URL}/api/venta/cancelar/${ventaId}`, {
+      method: 'POST'
+    });
   } catch {
     throw new Error("No se pudo cancelar la venta. Por favor, intente nuevamente.");
   }
