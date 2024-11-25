@@ -40,8 +40,18 @@ export function useCart() {
 
     if (ventaActualizada.ok) {
       setMostrarCarrito(true);
+      Swal.fire({
+        icon: 'success',
+        title: "SE ESTA ACABANDO EL AÑOOOOO",
+        text: ventaActualizada.mensaje
+      })
     } else {
-      alert(ventaActualizada.mensaje);
+      Swal.fire({
+        icon: 'error',
+        title: "Oops...",
+        text: ventaActualizada.mensaje
+      })
+      //alert(ventaActualizada.mensaje);
     }
   };
 
