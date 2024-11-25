@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { API_URL } from "./consts";
 import { Venta } from "./types/ventas";
 
@@ -84,7 +85,12 @@ export async function cancelarVenta(ventaId: string) {
 export async function procesarCompra(estado: string) {
   const clienteId = localStorage.getItem('userId');
   if (!clienteId) {
-    alert("No se encontró el ID del cliente. Por favor, inicie sesión nuevamente.");
+    //alert("No se encontró el ID del cliente. Por favor, inicie sesión nuevamente.");
+    Swal.fire({
+      title: "Oops...",
+      text: "No se encontró el ID del cliente. Por favor, inicie sesión nuevamente.",
+      icon: "error",
+    });
     return;
   }
 
