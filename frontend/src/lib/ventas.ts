@@ -116,11 +116,21 @@ export async function procesarCompra(estado: string) {
     });
 
     if (estado === "REALIZADO") {
+      Swal.fire({
+        title: "¡Enhorabuena!",
+        text: "Tu compra ha sido realizada exitosamente.",
+        icon: "error",
+      });
       return {
         ok: true,
         mensaje: "Compra realizada con éxito."
       }
     } else if (estado === "CANCELADO") {
+      Swal.fire({
+        title: "Compra Cancelada",
+        text: "Compra cancelada. Los productos han sido removidos del carrito.",
+        icon: "warning",
+      });
       return {
         ok: true,
         mensaje: "Compra cancelada. Los productos han sido removidos del carrito."
@@ -129,6 +139,11 @@ export async function procesarCompra(estado: string) {
 
     await obtenerVentasEnProceso();
   } catch {
+    Swal.fire({
+      title: "Error",
+      text: "No se pudo procesar la factura. Intente nuevamente.",
+      icon: "error",
+    });
     return {
       ok: false,
       mensaje: "No se pudo procesar la factura. Intente nuevamente."
