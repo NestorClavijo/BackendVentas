@@ -38,11 +38,13 @@ export function useCart() {
     const ventaActualizada = await agregarModificarVenta(productoId, cantidad);
     actualizarCarrito();
 
-    if (ventaActualizada.ok == true) {
+    console.log(ventaActualizada);
+
+    if (ventaActualizada.ok === true) {
       setMostrarCarrito(true);
       Swal.fire({
         icon: 'success',
-        title: "SE ESTA ACABANDO EL AÑOOOOO",
+        title: "¡Enhorabuena!",
         text: ventaActualizada.mensaje
       })
     } else {

@@ -57,11 +57,17 @@ export async function agregarModificarVenta(productoId: string, cantidad: number
       body: JSON.stringify(ventaData)
     });
     const data = await response.json();
-
-    return {
-      ok: !!data,
-      mensaje: "Venta actualizada con éxito."
-    };
+    if(response.ok){
+      return {
+        ok: !!data,
+        mensaje: "Venta actualizada con éxito."
+      };
+    } else {
+      return {
+        ok: false,
+        mensaje: "No se pudo actualizar la venta. Por favor, intente nuevamente."
+      };
+    }
   } catch {
     return {
       ok: false,
