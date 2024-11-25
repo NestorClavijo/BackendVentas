@@ -48,7 +48,7 @@ export default function DashboardSucursal() {
                     onClick={() => abrirModal(producto)}
                     style={{ cursor: 'pointer' }}
                   >
-                    <img src="/logo192.png" alt={producto.nombre} className="card-img" />
+                    <img src="images/se-esta-acabando-el-anio.jpg" alt={producto.nombre} className="card-img" />
                     <div className="card-body">
                       <h5 className="card-title">{producto.nombre}</h5>
                       <p className="card-text">Precio: ${producto.precio}</p>
