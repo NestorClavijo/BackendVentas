@@ -119,7 +119,7 @@ export async function procesarCompra(estado: string) {
       Swal.fire({
         title: "¡Enhorabuena!",
         text: "Tu compra ha sido realizada exitosamente.",
-        icon: "error",
+        icon: "success",
       });
       return {
         ok: true,
