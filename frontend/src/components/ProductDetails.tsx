@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 import '../assets/product-details.css';
 import { ProductModalContext } from '../lib/hooks/product-modal';
 import { CartContext } from '../lib/hooks/cart';
@@ -23,6 +23,10 @@ const ProductDetails = () => {
     cerrarModal();
   }
 
+  const onChange = (number: ChangeEvent<HTMLInputElement>) => {
+    setCantidad(Number(number.target.value));
+  }
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
@@ -35,7 +39,7 @@ const ProductDetails = () => {
           <p className="product-price">Precio: ${producto?.precio}</p>
           <div className="cantidad-control">
             <button className="btn btn-outline-secondary" onClick={disminuirCantidad}>-</button>
-            <input type="number" value={cantidad} readOnly className="form-control cantidad-input" />
+            <input type="number" value={cantidad} onChange={(e) => onChange(e)} className="form-control cantidad-input w-auto" />
             <button className="btn btn-outline-secondary" onClick={incrementarCantidad}>+</button>
           </div>
           <button
