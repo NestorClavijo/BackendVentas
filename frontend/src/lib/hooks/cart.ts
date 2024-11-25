@@ -38,7 +38,7 @@ export function useCart() {
     const ventaActualizada = await agregarModificarVenta(productoId, cantidad);
     actualizarCarrito();
 
-    if (ventaActualizada.ok) {
+    if (ventaActualizada.ok == true) {
       setMostrarCarrito(true);
       Swal.fire({
         icon: 'success',
