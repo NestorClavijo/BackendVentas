@@ -17,7 +17,7 @@ function Gerencia() {
 
     try {
       // Llamada al endpoint para obtener el informe
-      const response = await axios.get('http://localhost:8080/api/venta/informe');
+      const response = await axios.get('http://backendventas-production.up.railway.app/api/venta/informe');
       setInformeData(response.data); // Guardar los datos en el estado
       setShowInforme(true); // Mostrar el informe
     } catch (error) {
