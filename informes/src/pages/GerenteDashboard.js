@@ -2,6 +2,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importar estilos de Bootstrap
 import React, { useState } from 'react';
 import '../assets/GerenteDashboard.css';
+import Swal from 'sweetalert2';
 
 function Gerencia() {
   const [sucursal, setSucursal] = useState('sucursal1');
@@ -11,7 +12,12 @@ function Gerencia() {
   // Función para generar el informe con datos del backend
   const generarInforme = async () => {
     if (sucursal !== 'sucursal1') {
-      alert("Seleccione la sucursal correcta");
+      //alert("Seleccione la sucursal correcta");
+      Swal.fire({
+        icon: "warning",
+        title: "Sucursal incorrecta...",
+        text: "Seleccione la sucursal correcta.",
+      });
       return;
     }
 
@@ -22,7 +28,12 @@ function Gerencia() {
       setShowInforme(true); // Mostrar el informe
     } catch (error) {
       console.error("Error al generar el informe:", error);
-      alert("Hubo un error al generar el informe. Por favor, intenta nuevamente.");
+      //alert("Hubo un error al generar el informe. Por favor, intenta nuevamente.");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Hubo un error al generar el informe. Por favor, intenta nuevamente.",
+      });
     }
   };
 
